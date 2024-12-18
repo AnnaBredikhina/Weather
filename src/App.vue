@@ -42,8 +42,10 @@ export default {
       <p><span>Описание:</span> {{ info.weather[0].description }}</p>
       <p><span>Температура сейчас:</span> {{ rounding(info.main.temp) }} °C</p>
       <p><span>Ощущается как:</span> {{ rounding(info.main.feels_like) }} °C</p>
-      <p><span>Ветер:</span> {{ rounding(info.wind.speed) }} м/с</p>
-      <p><span>Влажность:</span> {{ rounding(info.main.humidity) }} %</p>
+      <div className="weatherInfo-smallBlock">
+        <p><span>Ветер</span> {{ rounding(info.wind.speed) }} м/с</p>
+        <p><span>Влажность</span> {{ rounding(info.main.humidity) }} %</p>
+      </div>
     </div>
 
   </div>
@@ -66,6 +68,17 @@ export default {
   text-align: center;
   color: rgb(0, 72, 69);
   position: relative;
+}
+
+.wrapper::after {
+  content: "";
+  width: 256px;
+  height: 256px;
+  background: url(./assets/sun.png);
+  position: absolute;
+  bottom: -90px;
+  left: -80px;
+  z-index: -1;
 }
 
 .wrapper p {
@@ -110,5 +123,29 @@ export default {
 
 .weatherInfo span {
   font-weight: 600;
+}
+
+.weatherInfo-smallBlock {
+  display: grid;
+  justify-content: center;
+  grid-template-columns: repeat(2, auto);
+  column-gap: 20px;
+}
+
+.weatherInfo-smallBlock p {
+  padding: 20px;
+  border: 1px solid #fff;
+  border-radius: 15px;
+}
+
+.weatherInfo-smallBlock span {
+  display: block;
+  padding-bottom: 5px;
+}
+
+@media (max-width: 1000px) {
+  .wrapper::before {
+    content: none;
+  }
 }
 </style>
